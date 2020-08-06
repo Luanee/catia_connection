@@ -162,7 +162,10 @@ class CATIA:
             dict: Informations regarding structure level, item, type, mass, volume, wet area, gravity center and inertia.
 
         """
-        return self.children[index]
+        try:
+            return self.children[index]
+        except KeyError:
+            return None
 
     def set_parts(self):
         """
@@ -349,27 +352,13 @@ class CATIA:
 
 if __name__ == "__main__":
     catia_app = CATIA()
+    # prints application name or None
     print(catia_app.catia)
+    # prints the active document
     print(catia_app.get_active_document())
+    # prints the active file
     print(catia_app.get_active_file())
-    # print()
-    # print(catia_app.get_child(5))
-    # print()
-    # [print(items) for items in catia_app.get_children().items()]
-    # print()
-    # [print(items) for items in catia_app.get_children().items()]
-    # [print(elem) for elem in catia_app.get_parts()]
-    # print()
-    # [print(elem) for elem in catia_app.get_products()]
-    boot = catia_app.find_part("boot", ignores=["boot_can", "boot.can"])
-    print(boot)
-    # print(boot.file_name)
-    # print(boot.name)
-    # print(boot.part_number)
-    # catia_app.set_visibility(boot, True)
-    # print()
-    # [print(elem) for elem in catia_app.get_products()]
-    # print()
-    # [print(elem.file_name) for elem in catia_app.parts]
-    # print()
-    # [print(elem.full_name) for elem in catia_app.products]
+    # find and returns item nr. 1
+    item_1 = catia_app.get_child(1)
+    # changes the visibility of item_1
+    catia_app.set_visibility(item_1, True)
